@@ -32,7 +32,7 @@ class EmailServices:
                             f"<p>This is a sample email from Muski-Stalks.</p>"
                             f"<p></p>"
                             f"<p>Thanks,</p>"
-                            f"<p>Muski-Stalks :*</p>"
+                            f"<p>Muski-Stalks</p>"
                             f"<img src='cid:image1'>", 'html')
         msg.attach(msg_text)
 
