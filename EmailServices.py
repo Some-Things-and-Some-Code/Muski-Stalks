@@ -9,6 +9,7 @@ from email.mime.text import MIMEText
 from email.mime.image import MIMEImage
 from email.mime.application import MIMEApplication
 from os.path import basename
+from random import randrange
 
 
 class EmailServices:
@@ -22,6 +23,12 @@ class EmailServices:
         self.sender = 'muski-stalks@twothingsandsomecode.com'
 
     def send_email(self):
+
+        # Pick a random number for the elon image
+        ran_num = randrange(2)
+
+        # Pick the mood of the image based on our stats
+        mood = "Happy"  # Can also be Neutral or Sad
 
         msg = MIMEMultipart('related')
         msg['From'] = self.sender
@@ -37,7 +44,7 @@ class EmailServices:
         msg.attach(msg_text)
 
         # Elon picture
-        sig = io.open('Images\\Happy\\0.jpg', 'rb')
+        sig = io.open(f'Images\\{mood}\\{ran_num}.jpg', 'rb')
         elon_musk = MIMEImage(sig.read())
         sig.close()
 
