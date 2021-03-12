@@ -16,11 +16,10 @@ class EmailServices:
 
     # right now it doesn't need the username and password, making a second init that doesn't have those
     def __init__(self):
-        self.recipients = ["eseidel@castlecookemortgage.com", "eberg@castlecookemortgage.com",
-                           "amassey@castlecookemortgage.com"]
+        self.recipients = ["example@example.com"]
 
         # SMTP Variables
-        self.sender = 'muski-stalks@twothingsandsomecode.com'
+        self.sender = 'muski-stalks@somedomain.com'
 
     def send_email(self):
 
