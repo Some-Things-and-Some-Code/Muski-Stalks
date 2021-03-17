@@ -1,3 +1,7 @@
+"""
+Class by Baron
+"""
+
 import speech_recognition as sr
 import pandas as pd
 import pyttsx3
@@ -5,57 +9,58 @@ import csv
 import os
 
 
-# Function for the program to speak text sent to the function
-def speak(text):
-    engine = pyttsx3.init()
-    engine.say(text)
-    engine.runAndWait()
+class SpeechToText:
 
+    def __init__(self):
+        self.EMERGENCY_SHUTDOWN = "marmalade"
 
-# Function to listen to audio
-def get_audio():
-    r = sr.Recognizer()
-
-    with sr.Microphone() as source:
-        audio = r.listen(source)
-        said = ""
-
+        # make sure the file is there or create it if it isn't
         try:
-            said = r.recognize_google(audio)
+            if os.path.isfile('database.csv'):
+                csv_file = open('database.csv', 'a', encoding='utf-8-sig', newline='')
+                csv_file.close()
+            # If the file does not exist, creates it
+            else:
+                csv_file = open('database.csv', 'w', encoding='utf-8-sig', newline='')
+                csv_writer = csv.writer(csv_file)
+                csv_writer.writerow(['Key_Words', 'Count'])
+                csv_file.close()
         except Exception as e:
-            print("Exception:", str(e))
+            print(e)
+            exit()
 
-    return said.lower()
+    # Function for the program to speak text sent to the function
+    def speak(self, text):
+        engine = pyttsx3.init()
+        engine.say(text)
+        engine.runAndWait()
 
+    # Function to listen to audio
+    def get_audio(self):
+        r = sr.Recognizer()
 
-def word_tracker():
-    EMERGENCY_SHUTDOWN = "marmalade"
+        with sr.Microphone() as source:
+            audio = r.listen(source)
+            said = ""
 
-    try:
-        if os.path.isfile('database.csv'):
-            csv_file = open('database.csv', 'a', encoding='utf-8-sig', newline='')
-            csv_file.close()
-        # If the file does not exist, creates it
-        else:
-            csv_file = open('database.csv', 'w', encoding='utf-8-sig', newline='')
-            csv_writer = csv.writer(csv_file)
-            csv_writer.writerow(['Key_Words', 'Count'])
-            csv_file.close()
-    except Exception as e:
-        print(e)
-        exit()
+            try:
+                said = r.recognize_google(audio)
+            except Exception as e:
+                print("Exception:", str(e))
 
-    while True:
+        return said.lower()
+
+    def word_tracker(self):
         print("Listening to surroundings...")
 
-        # Starts our listenser and returns the text detected
-        text = get_audio()
+        # Starts our listener and returns the text detected
+        text = self.get_audio()
         # Splits all words heard into an array
         text = text.split(" ")
         print(text)
         # Checks the array for keywords and updates the database with how many times they have been mentioned
         for word in text:
-            if word.find(EMERGENCY_SHUTDOWN) != -1:  # stop loop
+            if word.find(self.EMERGENCY_SHUTDOWN) != -1:  # stop loop
                 print("Exiting Program...")
                 break
 
@@ -93,8 +98,6 @@ def word_tracker():
                 df = pd.read_csv('database.csv')
                 df.loc[df["Key_Words"] == "Mars", "Count"] += 1
                 df.to_csv("database.csv", index=False)
+
             else:
                 continue
-
-
-word_tracker()

@@ -1,17 +1,22 @@
 """
 Controller for the thing
 """
+"""
+import:
+EmailServices
+Datetime
+SpeechToText
 
-from EmailServices import *
+Define main
+initialize email services
+initialize datetime if needed
+Initialize SpeechToText
 
-es = EmailServices()
-
-
-def main():
-
-    # Testing the email sender
-    es.send_email()
-
-
-if __name__ == '__main__':
-    main()
+while true
+    run SpeechToText
+    
+    if time is 8am
+        run email services
+        export database as yesterday
+        clear out database.csv
+"""
