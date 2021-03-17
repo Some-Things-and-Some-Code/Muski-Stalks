@@ -9,6 +9,8 @@ import csv
 import os
 
 
+# ToDo set cells to ints and set to 0
+
 class SpeechToText:
 
     def __init__(self):
