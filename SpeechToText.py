@@ -9,8 +9,6 @@ import csv
 import os
 
 
-# ToDo set cells to ints and set to 0
-
 class SpeechToText:
 
     def __init__(self):
@@ -42,6 +40,7 @@ class SpeechToText:
         r = sr.Recognizer()
 
         with sr.Microphone() as source:
+            # r.energy_threshold = 2300
             audio = r.listen(source)
             said = ""
 
@@ -64,7 +63,7 @@ class SpeechToText:
         for word in text:
             if word.find(self.EMERGENCY_SHUTDOWN) != -1:  # stop loop
                 print("Exiting Program...")
-                break
+                exit()
 
             elif word == "elan" or word == "ilan" or word == "elon":
                 df = pd.read_csv('database.csv')

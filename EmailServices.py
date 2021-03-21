@@ -13,8 +13,6 @@ from random import randrange
 from CSVServices import *
 from Api import Api
 
-csv = CSVServices()
-
 
 class EmailServices:
 
@@ -27,6 +25,8 @@ class EmailServices:
 
         # Key words for the email
         self.keywords = ['Elon', 'Musk', 'Musky', 'Boi', 'Tesla', 'Spacex', 'Mars']
+
+        self.csv = CSVServices()
 
     def send_email(self):
 

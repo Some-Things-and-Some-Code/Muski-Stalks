@@ -33,7 +33,6 @@ class CSVServices:
         self.data.to_csv("yesterday.csv", index=False)
 
     def quote_to_array(self):
-
         quotes = []
 
         for i in self.quotes:
@@ -43,3 +42,13 @@ class CSVServices:
                 quotes.append(i)
 
         return quotes
+
+    def zero_fill(self):
+
+        self.data.loc[self.data["Key_Words"] == "Elon", "Count"] = 0
+        self.data.loc[self.data["Key_Words"] == "Musk", "Count"] = 0
+        self.data.loc[self.data["Key_Words"] == "Musky", "Count"] = 0
+        self.data.loc[self.data["Key_Words"] == "Boi", "Count"] = 0
+        self.data.loc[self.data["Key_Words"] == "Tesla", "Count"] = 0
+        self.data.loc[self.data["Key_Words"] == "SpaceX", "Count"] = 0
+        self.data.loc[self.data["Key_Words"] == "Mars", "Count"] = 0

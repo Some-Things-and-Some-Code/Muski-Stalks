@@ -1,22 +1,33 @@
 """
 Controller for the thing
 """
-"""
-import:
-EmailServices
-Datetime
-SpeechToText
 
-Define main
-initialize email services
-initialize datetime if needed
-Initialize SpeechToText
+from EmailServices import *
+from SpeechToText import *
+from datetime import datetime
 
-while true
-    run SpeechToText
-    
-    if time is 8am
-        run email services
-        export database as yesterday
-        clear out database.csv
-"""
+
+def main():
+
+    # Initialize child functions
+    es = EmailServices()
+    stt = SpeechToText()
+
+    while True:
+
+        # Keep track of our words
+        stt.word_tracker()
+
+        # get the current hour
+        now = datetime.now()
+
+        hour = now.strftime("%H")
+
+        if hour == "08":
+            es.send_email()
+            es.csv.night_save()
+            es.csv.zero_fill()
+
+
+if __name__ == '__main__':
+    main()
